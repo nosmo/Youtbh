@@ -38,13 +38,12 @@ sub sig_public {
         if($content =~ /<title>(.*)<\/title>/ig) {
             $title = $1;
         }
-
-	    Irssi::print("$url ::  $title");
 	
 	    if (settings_get_int('message_channel') == 1) {
-	        $server->command("MSG $channel $url :: $title");
+	        $server->command("MSG $channel $title");
+        } else { 
+            $server->command("ECHO -current $title");
         }
-    
     }
 }
 
