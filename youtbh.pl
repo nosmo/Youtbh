@@ -5,7 +5,11 @@ use strict;
 use LWP::Simple;
 
 use vars qw($VERSION %IRSSI);
-use Irssi;
+use Irssi qw(
+    settings_get_int settings_get_str
+    settings_add_int settings_add_str
+    signal_add_last
+    );
 
 $VERSION = '1.01';
 %IRSSI = (
@@ -18,8 +22,9 @@ $VERSION = '1.01';
     license     => 'Public Domain',
 	  );
 
-# Declare variables
-
+# Message the channel? This is useful for bot-type situations 
+# but will be annoying as all hell if people aren't aware
+settings_add_int('youtbh','message_channel',0);
 
 sub sig_public {
     my ($server, $msg, $nick, $address, $channel) = @_;
@@ -34,8 +39,12 @@ sub sig_public {
             $title = $1;
         }
 
-	Irssi::print("$url ::  $title");
-	$server->command("MSG $channel $url :: $title");
+	    Irssi::print("$url ::  $title");
+	
+	    if (settings_get_int('message_channel') == 1) {
+	        $server->command("MSG $channel $url :: $title");
+        }
+    
     }
 }
 
