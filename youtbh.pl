@@ -20,9 +20,9 @@ $VERSION = '1.01';
                    'stupid incessant ' .
                    'youtube links ARE',
     license     => 'Public Domain',
-	  );
+    );
 
-# Message the channel? This is useful for bot-type situations
+# Message the channel? This is useful for bot-type situations
 # but will be annoying as all hell if people aren't aware
 settings_add_int('youtbh','message_channel',0);
 
