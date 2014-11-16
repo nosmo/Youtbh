@@ -22,13 +22,13 @@ $VERSION = '1.01';
     license     => 'Public Domain',
 	  );
 
-# Message the channel? This is useful for bot-type situations 
+# Message the channel? This is useful for bot-type situations
 # but will be annoying as all hell if people aren't aware
 settings_add_int('youtbh','message_channel',0);
 
 sub sig_public {
     my ($server, $msg, $nick, $address, $channel) = @_;
-    if ($msg =~ /http:\/\/\w{0,3}.?youtube\.com\/watch\?v=[-_A-Za-z0-9]{11}/) {
+    if ($msg =~ /https?:\/\/\w{0,3}.?youtube\.com\/watch\?v=[-_A-Za-z0-9]{11}/) {
         my $url = $&;
         my $content = get $url;
         die "Couldn't get $url" unless defined $content;
@@ -38,10 +38,10 @@ sub sig_public {
         if($content =~ /<title>(.*)<\/title>/ig) {
             $title = $1;
         }
-	
+
 	    if (settings_get_int('message_channel') == 1) {
 	        $server->command("MSG $channel $title");
-        } else { 
+        } else {
             $server->command("ECHO -current $title");
         }
     }
