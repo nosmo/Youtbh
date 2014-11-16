@@ -30,7 +30,7 @@ sub sig_public {
     my ($server, $msg, $nick, $address, $channel) = @_;
     if ($msg =~ /https?:\/\/\w{0,3}.?youtube\.com\/watch\?v=[-_A-Za-z0-9]{11}/) {
         my $url = $&;
-        my $content = get $url;
+        my $content = get($url);
         die "Couldn't get $url" unless defined $content;
 
         my $title = "";
@@ -39,8 +39,8 @@ sub sig_public {
             $title = $1;
         }
 
-	    if (settings_get_int('message_channel') == 1) {
-	        $server->command("MSG $channel $title");
+        if (settings_get_int('message_channel') == 1) {
+            $server->command("MSG $channel $title");
         } else {
             $server->command("ECHO -current $title");
         }
