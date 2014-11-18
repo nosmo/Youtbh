@@ -1,7 +1,7 @@
 youtbh
 ========
 
-youtbh is a simple Python plugin for [irssi](http://www.irssi.org/)
+youtbh is a simple Perl plugin for [irssi](http://www.irssi.org/)
 that reveals the title of youtube links that appear in a channel.
 
 Links will reveal themselves as a message in the current window like
